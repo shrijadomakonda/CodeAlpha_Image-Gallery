@@ -1,6 +1,6 @@
  CodeAlpha_TASK1
  
- Image 
+ Image Gallery
  
  Image Gallery is a web application that allows users to view and browse a collection of images in a clean and responsive interface.
 
