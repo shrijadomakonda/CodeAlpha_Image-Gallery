@@ -1,0 +1,364 @@
+:root {
+  --ink: #172026;
+  --muted: #5d6872;
+  --surface: #ffffff;
+  --line: rgba(23, 32, 38, 0.14);
+  --accent: #e15745;
+  --accent-dark: #a9362b;
+  --gold: #f1b84b;
+  --green: #3f7b66;
+  --shadow: 0 26px 70px rgba(16, 28, 38, 0.18);
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(63, 123, 102, 0.12), transparent 34%),
+    linear-gradient(225deg, rgba(225, 87, 69, 0.13), transparent 38%),
+    #f7f4ee;
+}
+
+button {
+  font: inherit;
+}
+
+.slider-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 36px 18px;
+}
+
+.slider-shell {
+  width: min(1120px, 100%);
+}
+
+.slider-meta {
+  max-width: 720px;
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(2.45rem, 5vw, 5.4rem);
+  line-height: 0.96;
+}
+
+.intro {
+  max-width: 580px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #101820;
+  box-shadow: var(--shadow);
+}
+
+.slides {
+  position: relative;
+  height: clamp(430px, 62vw, 660px);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 520ms ease, transform 720ms ease;
+  pointer-events: none;
+}
+
+.slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 10, 13, 0.72), rgba(5, 10, 13, 0.12) 58%, rgba(5, 10, 13, 0.28)),
+    linear-gradient(0deg, rgba(5, 10, 13, 0.38), transparent 42%);
+}
+
+.caption {
+  position: absolute;
+  left: clamp(22px, 5vw, 66px);
+  bottom: clamp(72px, 10vw, 108px);
+  z-index: 1;
+  width: min(460px, calc(100% - 44px));
+  color: #fff;
+}
+
+.caption span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 50%;
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.caption h2 {
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 5vw, 4.6rem);
+  line-height: 0.95;
+}
+
+.caption p {
+  margin-bottom: 0;
+  max-width: 390px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+  backdrop-filter: blur(12px);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.nav-button:focus-visible,
+.autoplay-toggle:focus-visible,
+.dot:focus-visible,
+.thumbnail:focus-visible {
+  outline: 3px solid rgba(241, 184, 75, 0.82);
+  outline-offset: 3px;
+}
+
+.nav-button span {
+  display: block;
+  margin-top: -4px;
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.nav-prev {
+  left: 22px;
+}
+
+.nav-next {
+  right: 22px;
+}
+
+.slider-controls {
+  position: absolute;
+  left: clamp(22px, 5vw, 66px);
+  right: clamp(22px, 5vw, 66px);
+  bottom: 26px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 38px;
+  height: 5px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.36);
+  cursor: pointer;
+}
+
+.dot.is-active {
+  background: var(--gold);
+}
+
+.autoplay-toggle {
+  min-width: 86px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+.thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.thumbnail {
+  min-height: 96px;
+  padding: 0;
+  overflow: hidden;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background: var(--surface);
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(16, 28, 38, 0.1);
+}
+
+.thumbnail.is-active {
+  border-color: var(--accent);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: saturate(0.8);
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.thumbnail:hover img,
+.thumbnail.is-active img {
+  filter: saturate(1.08);
+  transform: scale(1.05);
+}
+
+@media (max-width: 760px) {
+  .slider-page {
+    padding: 24px 14px;
+    place-items: start center;
+  }
+
+  .slides {
+    height: 560px;
+  }
+
+  .slide::after {
+    background:
+      linear-gradient(0deg, rgba(5, 10, 13, 0.78), rgba(5, 10, 13, 0.1) 72%),
+      linear-gradient(90deg, rgba(5, 10, 13, 0.42), transparent);
+  }
+
+  .caption {
+    bottom: 96px;
+  }
+
+  .nav-button {
+    top: auto;
+    bottom: 24px;
+    width: 44px;
+    height: 44px;
+    transform: none;
+  }
+
+  .nav-button:hover {
+    transform: scale(1.04);
+  }
+
+  .nav-prev {
+    left: auto;
+    right: 76px;
+  }
+
+  .nav-next {
+    right: 22px;
+  }
+
+  .slider-controls {
+    align-items: flex-start;
+    flex-direction: column;
+    right: 128px;
+    bottom: 26px;
+  }
+
+  .thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 460px) {
+  h1 {
+    font-size: 2.35rem;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+  }
+
+  .slides {
+    height: 520px;
+  }
+
+  .caption p {
+    font-size: 0.93rem;
+  }
+
+  .dot {
+    width: 26px;
+  }
+
+  .autoplay-toggle {
+    min-width: 78px;
+    min-height: 36px;
+    padding: 0 12px;
+  }
+}
