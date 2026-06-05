@@ -18,5 +18,6 @@
 - CSS
 - JavaScript
 
-  Author
-  Shrija Domakonda
+ Author
+ 
+ Shrija Domakonda
